@@ -13,7 +13,7 @@ theme_settings:
 
   # Header and footer text
   header_text: >
-     <p>Raghu Paredla</p>
+     <h2>Posts</h2>
      <p></p>
   header_text_feature_image:
   footer_text: >
@@ -21,7 +21,7 @@ theme_settings:
 
   # Icons
   rss: false
-  email_address: "raghuram5910@gmail.com"
+  email_address: "201551035@iiitvadodara.ac.in"
   behance:
   bitbucket:
   dribbble:
