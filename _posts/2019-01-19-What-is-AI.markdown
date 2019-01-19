@@ -1,0 +1,35 @@
+---
+layout: "post"
+title: "Busting AI jargon"
+date: 2019-01-16 19:20:41 +0530
+author: "Raghu Paredla"
+categories: jekyll
+permalink: '/AI/what-is-ai'
+---
+Artificial Intelligence, Machine Learning, Deep Learning etc...In our daily tech life we come across these words. Even after learning a few basics in one of the above, we fail to distinguish or interpret concisely what they are. This post was intended to clear this haze.
+### What is Artificial Intelligence ?
+Mimicking of human intelligence without explicit programming.
+### But what does human intelligence mean?
+- By **vision**, we humans can distinguish, classify and interpret the surroundings around us.
+- By listening to **speech** signals, we can understand the context, recognize the speaker(if the voice is familiar), detect the emotion of a speaker etc..
+
+- By reading a text in a **language** understandable by us,we have the ability to understand text, to sense the situation even if there is an ambiguity in the sentence.
+- Given a situation to **decide**, we have the ability to make an apt decision for the given situation.
+
+> **_vision, speech recognition, language processing and decision making_** are the abilities of human brain. The efforts to bring these abilities to be performed by a computer led to a new branch called Artificial Intelligence.
+
+These human abilities when associated with computer are classified and are called **Computer Vision, Speech, Natural Language Processing and Decision Making** respectively.
+### Is Artificial Intelligence = Machine Learning?
+**No!!!**
+> AI is basically the intelligence – how we make machines intelligent, while machine learning is the implementation of the compute methods that support it - **Nidhi Cappell, Head of machine learning at Intel**
+
+By Machine Learning, what we mean is  **(i)** simultaneous problems, **(ii)** a class of solution methods that work well on the problems associated with human abilities, and **(iii)** the fields that studies these problems and its solution methods. It is convenient to use a single name for all three things, but at the same time essential to keep the three conceptually separate. Here I tried to explain some common words in AI jargon.
+
+- **Expert Systems:** Mostly used in earlier years of AI. These methods has to be explicitly programmed and they do not use any statistical techniques.
+- **Machine Learning:** These methods do not require explicit programming but several parameters has to be engineered to achieve good performance._**examples:**_ Linear regression, Logistic regression, SVM, Neural Networks etc.,. are a few methods.
+
+> A special and deep focus on Neural Networks prompted **Deeplearning**.
+
+> Data Science, Deep Learning etc.,. are the sub topics that fall under the umbrella of Machine Learning.
+
+> Most methods when used to solve specific problems in Machine Learning fall into three categories **(i)** Supervised Learning **(ii)** Unsupervised learning and **(iii)** Reinforcement Learning.
