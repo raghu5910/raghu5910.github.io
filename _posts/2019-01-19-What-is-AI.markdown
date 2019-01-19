@@ -37,6 +37,6 @@ By Machine Learning, what we mean is  **(i)** simultaneous problems, **(ii)** a 
 Andrew Ng — former Google Brain scientist, Coursera co-founder, and Stanford Adjunct Professor made this statement on asking his opinion on AI + Industry. Similar to how Electricity had an impact industry during Industrial Revolution 1, AI is making changes and is an actor for the Industrial Revolution 4.
 
 Although many methods that are being used in AI were developed during previous century, there are mainly two reasons
-why AI only picked in last decades.
+why AI only picked in the last two decades.
 - Computational power.
 - While these methods were developed with pure academic interest, it was industry that took AI to the surface. Because of the increased and varied customers and large data, it became difficult for large enterprises to understand the taste of consumers and they saw the light at end of the tunnel _i.e_ AI.
