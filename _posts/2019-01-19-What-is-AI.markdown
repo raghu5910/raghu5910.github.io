@@ -12,7 +12,6 @@ Mimicking of human intelligence without explicit programming.
 ### But what does human intelligence mean?
 - By **vision**, we humans can distinguish, classify and interpret the surroundings around us.
 - By listening to **speech** signals, we can understand the context, recognize the speaker(if the voice is familiar), detect the emotion of a speaker etc..
-
 - By reading a text in a **language** understandable by us,we have the ability to understand text, to sense the situation even if there is an ambiguity in the sentence.
 - Given a situation to **decide**, we have the ability to make an apt decision for the given situation.
 
