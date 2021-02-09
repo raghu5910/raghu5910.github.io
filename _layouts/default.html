@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html class="no-js">
+<html>
   {% include head.html %}
   <body>
     {% include header.html %}
-    <div class="content">
+    <article class="group">
       {{ content }}
-    </div>
+    </article>
+    {% include print-footer.html %}
     {% include footer.html %}
   </body>
 </html>

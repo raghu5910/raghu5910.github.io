@@ -1,227 +1,205 @@
-# Type Theme
+# tufte-jekyll theme
 
-![Default Type Theme blog](https://user-images.githubusercontent.com/816965/30518919-d5978024-9bcd-11e7-81b3-3dd07e99a1f9.png)
+The *Tufte-Jekyll* blog theme is based on the github repository by Edward Tufte [here](https://github.com/edwardtufte/tufte-css), which was orginally created by Dave Leipmann, but is now labeled under Edward Tufte's moniker. I borrowed freely from the Tufte-CSS repo and have transformed many of the typographic and page-structural features into a set of custom Liquid tags that make creating content using this style much easier than writing straight HTML. Essentially, if you know markdown, and mix in a few custom Liquid tags, you can be creating a website with this document style in short order.
 
-A free and open-source [Jekyll](https://jekyllrb.com) theme. Great for blogs and easy to customize.
+Please be aware that the feature parity between the tufte-css repository and this project is not perfect. It is very close, but this Jekyll theme has additional CSS to scratch some of my own itches. One example is that the sidenote's typography is vertically spaced in my CSS so they are on the same baseline grid as the body text and it doesn't hurt my eyes when I look at them. Another example is the optional use of color to style links. The current tufte.css repo doesn't allow that, but my opinion is that hey, this is the web. It shouldn't have to ape the way a book looks exactly.  I attempt to stay true to the overall sensibility of the tufte.css repo, but I am not going to sacrifice anything that I think reduces the usability or esthetics of this theme in the service of exact feature parity. Just as I have 'forked' the tufte.css, you are more than welcome to modify this theme to suit your own tastes and specific needs.
 
-[Demo](https://rohanchandra.github.io/type-theme/)
+## Demo
 
-## Usage
+A sample site with self-documenting content is available [here](http://clayh53.github.io/tufte-jekyll/) on github pages.
 
-1. Fork and clone the [Type Theme repo](https://github.com/rohanchandra/type-theme): `git clone https://github.com/rohanchandra/type-theme`
-2. [Install Jekyll](https://jekyllrb.com/docs/installation/): `gem install jekyll`
-3. Install the theme's dependencies: `bundle install`
-4. Customize the theme (see below)
-5. Run the Jekyll server: `jekyll serve`
+## Installation
 
-## Customizing Type Theme
+I'm not going to go into great detail here. I am just going to assume that anyone interested in either Jekyll, Edward Tufte's work or Github has some basic skills. I created this with Ruby 2.2.0 and Jekyll 2.5.3. There is absolutely nothing exotic going on here, so you can probably make any recent version of Jekyll work with this setup.
 
-Open `_config.yml` in a text editor to change most of the blog's settings.
+So copy, pull, download a zipfile or whatever and fire it up.
 
-If a variable in this document is marked as "optional", disable the feature by removing all text from the variable. For example, to prevent the avatar from rendering in the header, the avatar line should read:
-
-```yml
-theme:
-  title: Type Theme
-  avatar:
-  gravatar:
+```
+cd ~/thatPlaceYouPutIt/tufte-jekyll
+jekyll build
+jekyll serve -w
 ```
 
-Notice the avatar variable is left intentionally blank.
+And then point your browser at localhost:4000/tufte-jekyll
 
-Below is a summary of the configuration options in Type Theme.
+You can also use `jekyll serve -w --baseurl ''` to remove `/tufte-jekyll` from the url and serve your site directly from localhost:4000. This only affects your local preview. See [Setting your baseurl correctly](#setting-your-baseurl-correctly) for more details.
 
-### Site configuration
-The most common configurations, included here for guidance, are:
+## Configuration
 
-Jekyll website *without* a subpath (such as a GitHub Pages website for a given username):
+### Jekyll site building options
 
-```yml
-# SITE CONFIGURATION
-baseurl: ""
-url: "https://username.github.io"
+I have created a very simple site options file in the ```_data``` directory that contains two settings currently. The file in the github repo looks like this:
+```
+mathjax: true
+lato_font_load: true
+```
+Removing either 'true' value will prevent the jekyll site building process from adding links to either the Mathjax library or the Google Fonts Lato font as a fallback for the Gill Sans. Set these values to blank if you want to really streamline your page loading time.
+
+### SASS
+
+I am using Sass to create the css file used by this theme. If you would like to change things like fonts, text colors, background colors and so forth, edit the ```_scss/_settings.scss``` file. This file gets loaded first when Jekyll constructs the master CSS file from the tufte.scss SASS file, and contains SASS variables that influence the appearance of the site. The one variable that may be of interest to some is the ```$link-style``` variable, which can be set to either ```underline``` or ```color```. This will determine if your links are styled using the ```$contrast-color``` variable with no underlining, or whether they are styled using light underlining as seen on the [*tufte-css*](https://github.com/edwardtufte/tufte-css) repo.
+
+### Social icons
+
+You can edit the ```_data/social.yml``` file and put in your own information for the footer links
+
+### Silly-ass badge in the upper left
+
+In the ```assets/img``` directory is a file called ```badge_1.png```. This file's parent is ```badge_1.psd``` and is an editable photoshop file with layers for the letters comprising the initials. Change them to suit your fancy. Or just substitute another badge in its place. You can edit the ```_includes/header.html``` file and change the file that it points too. Find your favorite Tufte emoji and fly your freak flag proudly.
+
+## Some things about the things
+
+I needed to create several custom Liquid tags to wrap content in the right kind of tags. You will create your posts in the normal way in the ```_posts``` directory, and then edit them with Github-Flavored Markdown. In addition to all that GFM goodness, you can use the following custom Liquid tags in your content area.
+
+Note that these tags *have been altered* from Version 1 of this theme to accommodate some responsive features, namely the ability to reveal hidden sidenotes, margin notes and margin figures by tapping either a superscript or a symbol on small screens. This requires you to add a parameter to the tag that is a unique *ID* for each tag instance on the page. What the id is called is not important, but it is important that it be unique for each individual element on the page. I would recommend in the interest of sanity to give names that are descriptive, like ```'sn-id-1'``` or ```'mf-id-rhino'```.
+
+### Notes about quotes in Liquid tags
+
+The custom Liquid tags are designed to simplify writing content and displaying it with the *tufte-css* look. Here are a few notes on using quotes inside the tags.
+
+* Liquid tags work with either double or single quotes to surround the tag parameters, as you'll see in all the examples below.
+
+* You can use single quotes and apostrophes in the text inside tag parameters, as long as all the parameters are surrounded by double quotes. Liquid will automatically process them correctly. For example: `{% newthought "I'm so smart!" %}` will render as `I'm so smart!`. If the text inside one of the parameters contains a single quote, then use double quotes to surround the parameters. Conversely, if the text inside one of the parameters contains a double quote, use single quotes to surround the parameters.
+
+* One can also use a double quote in the text inside a tag parameter by 'escaping' the double quote by placing a backslash directly in front of it, for example: `{% newthought "\"I'm so smart!\", she thought." %}` will render as `"I'm so smart!", she thought.`
+
+* You can use HTML inside of a tag parameter. Originally, Markdown support inside the Liquid parameters strings was spotty, but I recently added some code that should allow most Markdown inside the tag parameter strings. You can use either single quotes, or escaped double quotes in the HTML. For example, both of the following tags will work:
+
+```
+{% newthought "Example website: <a href='http://example.com'>example label</a>" %}
+```
+```
+{% newthought "Example website: <a href=\"http://example.com\">example label</a>" %}
 ```
 
-Jekyll website *with* subpath (like the Type Theme demo page):
+The [demo site's Edge Cases entry](http://clayh53.github.io/tufte-jekyll/articles/15/Edge-Cases) has an example toward the bottom illustrating HTML inside of a tag parameter.
 
-```yml
-# SITE CONFIGURATION
-baseurl: "/sub-directory"
-url: "https://username.github.io/"
+### Epigraph
+
+This tag will render its three components into a standalone epigraph. This can be used as an introduction to a page or to a section within a page. As with most things Markdown, surround the epigraph with a blank line above and below it.
+
+```
+{% epigraph ' "How did you go bankrupt?" Two ways. Gradually, then suddenly.' 'Ernest Hemingway' ' "The Sun Also Rises" ' %}
 ```
 
-Please configure this in `_config.yml` before using the theme.
+### New thought
 
-### Meta
+This tag will render its contents in small caps. Useful at the beginning of new sections:
 
-Meta variables hold basic information about your Jekyll site which will be used throughout the site and as meta properties for search engines, browsers, and the site's RSS feed.
-
-Change these variables in `_config.yml`:
-
-| Variable | Example | Description | Optional |
-|-------------|----------------------------------|--------------------------------------------------------------------------------------------------------------------------------|----------|
-| title | My Jekyll Blog | Name of website | Yes |
-| avatar | assets/img/avatar.png | Path of avatar image, to be displayed in the theme's header | Yes |
-| gravatar | f9879d71855b5ff21e4963273a886bfc | [MD5 hash of your email address](https://secure.gravatar.com/site/implement/hash/) to load your Gravatar in the theme's header | Yes |
-| description | My blog posts | Short description, primarily used by search engines | Yes |
-
-### Header and footer text
-
-Change these variables in `_config.yml`:
-
-
-| Variable | Example | Description | Optional |
-|---------------------------|------------------------------|-------------------------------------------------------------------------|----------|
-| header_text | Welcome to my Jekyll blog | HTML (shown below the navigation) with a background colour for emphasis | Yes |
-| header_text_feature_image | assets/img/sample_feature_img_3.png | Background image for the header text | Yes |
-| footer_text | Copyright 2014 | HTML (shown at end of the site) with lighter text | Yes |
-
-### Icons
-
-Add your username on selected websites in the icon section of the `_config.yml` file to display the site's icon from [Font Awesome](https://fortawesome.github.io/Font-Awesome/) in the header navigation. All icon variables should be your username enclosed in quotes (e.g. "username"), except for the following variables:
-
-
-| Variable | Example | Description | Optional |
-|----------------|-------------------------------------------------|--------------------------------------------------------|----------|
-| rss | true | Takes boolean value (true/false) to show RSS feed icon | Yes |
-| email_address | type@example.com | Email address | Yes |
-| linkedin | https://www.linkedin.com/in/FirstLast | Full URL to profile on LinkedIn | Yes |
-| stack_exchange | https://stackoverflow.com/users/0000/first-last | Full URL to profile on Stack Exchange | Yes |
-
-### Scripts
-
-Change these variables in `_config.yml`:
-
-
-| Variable | Example | Description | Optional |
-|------------------|--------------|-------------------------------------------------------------------------------------------------------------------------------------|----------|
-| google_analytics | UA-123456-01 | Google Analytics [tracking ID](https://support.google.com/analytics/answer/1032385?hl=en) | Yes |
-| disqus_shortname | shortname | Disqus [shortname](https://help.disqus.com/customer/portal/articles/466208-what-s-a-shortname-) | Yes |
-| katex | true | Takes boolean value (true/false) to conditionally load [KaTeX](https://khan.github.io/KaTeX/) scripts required for math typesetting | Yes |
-
-Scripts listed here are only loaded if you provide a value in the `_config.yml` file.
-
-### Localization strings
-
-Change localization string variables in `_config.yml`.
-
-English text used in the theme (such as the "continue reading" label) has been grouped  so you can quickly translate the theme or change labels to suit your needs.
-
-### Colours, typography, padding
-
-![A selection of colours set in Type Theme by modifying the CSS](https://cloud.githubusercontent.com/assets/816965/5142488/130869a6-71d7-11e4-8a38-a69ec1673436.png)
-
-
-| Variable | Example | Description | Optional |
-|--------------|----------------------------|--------------------------------------|--------------------------------------------------------------|
-| google_fonts | "Playfair+Display:400,700\ | PT+Sans:400,700,700italic,400italic" | [Google Fonts](https://www.google.com/fonts) to load for use |
-
-Navigate to the `_sass > base` directory and open `_variables.scss` to change colours, typography and padding used in the theme with CSS.
-
-Once you have loaded a Google Font in `config.yml`, you can integrate the fonts into your CSS by changing the font-family in `_variables.scss`. For example, after loading the Playfair Display and PT Sans fonts from Google:
-
-```css
-// Typography
-$font-family-main: 'PT Sans', Helvetica, Arial, sans-serif;
-$font-family-headings: 'Playfair Display', Helvetica, Arial, sans-serif;
+```
+{% newthought "This will be rendered in small caps" %} blah blah
 ```
 
-Mozilla's [ColorPicker](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Colors/Color_picker_tool) is a helpful tool to get your preferred colours in hexadecimal or RGBA form for use in `_variables.scss`.
+### Sidenote
 
-## Posts and pages in Type Theme
-Please refer to the [Jekyll docs for writing posts](https://jekyllrb.com/docs/posts/). Non-standard features are documented below.
+This tag inserts a *sidenote* in the content, which is like a footnote, only its in the spacious right-hand column. It is automatically numbered, starting over on each page. Just put it in the content like you would insert a footnote like so:
 
-### Math typesetting
-Wrap math expressions with `$$` signs in your posts and make sure you have set the `katex` variable in `_config.yml` to `true` for math typesetting.
+```
+blah lorem blah{% sidenote "sidenote-id" "This is a random sidenote" %} blah blah
+```
+And it will add the html spans and superscripts. On smaller screens, tapping on the number will reveal the sidenote!
 
-For inline math typesetting, type your math expression on the *same line* as your content. For example:
+The `full-width` page layout will not display side notes. (It's a full-width page and has no margin)
 
-```latex
-Type math within a sentence $$2x^2 + x + c$$ to display inline
+### Margin note
+
+This tag is essentially the same as a sidenote, but heh, no number. Like this:
+
+```
+lorem nobeer toasty critters{% marginnote "margin-note-id" "Random thought when drinking" %} continue train of thought
+```
+On smaller screens, tapping on the <span>&#8853;</span> symbol will open up the margin note.
+
+The `full-width` page layout will not display margin notes. (It's a full-width page and has no margin)
+
+### Full width image
+
+This tag inserts an image that spans both the main content column and the side column:
+
+```
+blah blah
+{% fullwidth "assets/img/rhino.png" "A caption for the image" %}
+blah
 ```
 
-For display math typesetting, type your math expression on a *new line*. For example:
+or
 
-```latex
-$$
-  \bar{y} = {1 \over n} \sum_{i = 1}^{n}y_i
-$$
+```
+blah blah
+{% fullwidth "http://example.com/image.jpg" "A caption for the image" %}
+blah
 ```
 
-Type Theme makes use for [KaTeX](https://khan.github.io/KaTeX/) for typesetting.
+Note the absence of a leading slash in the image url when using relative file paths. (This is incorrect: `/assets/img/rhino.png`)
 
-### Feature images
+Also note that fullwidth images need to be included *on their own line* in order for the captions to work correctly.
 
-![Posts with geometric feature images](https://cloud.githubusercontent.com/assets/816965/5142406/19726478-71d6-11e4-8111-94f788b0e44d.png)
+### Main column image
 
-Add a feature image by specifying a path to an image in the [front matter](http://jekyllrb.com/docs/frontmatter/) in the form of `feature-img: "img/PATH_TO_IMAGE.png"`.
+This tag inserts an image that is confined to the main content column:
 
-For example:
-
-```yml
----
-layout: post
-title: Hello World
-feature-img: "assets/img/sample_feature_img.png"
----
+```
+blah blah
+{% maincolumn "assets/img/rhino.png" "This is the caption" %}
+blah
 ```
 
-### Hiding pages from navigation
+or
 
-In the Front Matter of a page, add `hide: true` to prevent the page from showing up in the header's navigation bar (visitors can still visit the URL through other means).
-
-For example:
-
-```yml
----
-layout: page
-title: "Error 404: Page not found"
-permalink: /404.html
-hide: true
----
+```
+blah blah
+{% maincolumn "http://example.com/image.jpg" "This is the caption" %}
+blah
 ```
 
-### Tags
+No need for an ID in this tag because it doesn't have any doohickies that open and close on narrow screens. Again note the absence of the leading slash in the image url when using relative file paths. (This is incorrect: `/assets/img/rhino.png`)
 
-Post tags should be placed between `[]` in your post metadata. Seperate each tag with a comma.
+And just like fullwidth images, main column images need to be included on their own line in order for the captions to work correctly.
 
-For example:
+### Margin figure
 
-```yml
----
-layout: post
-title: Markdown and HTML
-tags: [sample, markdown, html]
----
+This tag inserts and image in the side column area. Note that an id needs to be specified:
+
+```
+blah blah {% marginfigure "margin-figure-id" "assets/img/rhino.png" "This is the caption" %} blah
 ```
 
-A tags listing will be automatically generated using the `tags.html` file provided in Type theme. If you're not using the tags feature it is safe to delete `tags.html`.
+or
 
-### Search
-
-The search feature can be activated in the `_config.yml` file by changing its value from `false` to `true`.
-
-```yml
-  #Scripts
-  search: true
+```
+blah blah {% marginfigure "margin-figure-id" "http://example.com/image.jpg" "This is the caption" %} blah
 ```
 
-Once activated, the search bar will appear in the header. This feature uses [Lunr](https://lunrjs.com/) and searches through the title, tags and content of your posts.
+This needs an ID parameter so that it can be clicked and opened on small screens. Again note the absence of the leading slash in the image url when using relative file paths. (This is incorrect: `/assets/img/rhino.png`)
 
-### Subtitles
-A subtitle can be displayed below your title on permalink post pages.
+The `full-width` page layout will not display margin figures. (It's a full-width page and has no margin)
 
-To enable this feature, add `subtitle` to your post metadata.
+### Mathjax
 
-For example:
+For those wanting to use this Jekyll theme for academic writing, the new Kramdown Markdown engine will accurately parse *MathJax* expressions as long as they are enclosed in a pair of double dollar signs like this:
 
-```yml
----
-layout: post
-title: "This is a title"
-subtitle: "This is a subtitle"
----
+```$$ x = {-b \pm \sqrt{b^2-4ac} \over 2a} $$```
+
+As a side note - if you do not need the math ability, navigate to the ```_data/options.yml``` file and change the mathjax to 'false' and it will not load the mathjax javascript.
+
+### Setting your baseurl correctly
+
+In the `_config.yml` file is a setting called `baseurl`. This is used by the Jekyll engine to construct all the proper links in the static site. Right now it is set to `/tufte-jekyll` since this project is using Github Pages and you are required to set the project name as the baseurl to serve from Github Pages.
+
+Set this to your own project name if you're going to serve your site from Github Pages. Be sure to include the leading slash, and no trailing slash. For example: `/my-project-name`
+
+For a full explanation of setting your baseurl to work with Github Pages, see the [Project Page URL Structure](http://jekyllrb.com/docs/github-pages/#project-page-url-structure) section of the Jekyll documentation.
+
+To serve from anywhere else besides Github Pages, use a blank baseurl in your `_config.yml` file:
+
+```
+baseurl:
 ```
 
-## License
-[The MIT License (MIT)](https://github.com/rohanchandra/type-theme/blob/master/LICENSE)
+This is `baseurl:` with nothing after it. Not even a space.
+
+### Rakefile
+
+I have added a boilerplate Rakefile directly from the [jekyll-rake-boilerplate repo](https://github.com/gummesson/jekyll-rake-boilerplate). This saves you a small amount of time by prepending the date on a post name and populated the bare minimum of YAML front matter in the file. Please visit the link to the repo to find out how it runs. One thing to note is that there should be *no* space between the task and the opening bracket of your file name. ```rake post["Title"]``` will work while ```rake post ["Title"]``` will not.
+
+There is another rakefile (UploadtoGithub.Rakefile) included that only has one task in it - an automated upload to a *Github Pages* location of the site. This is necessary because of the plugins used by this theme. It does scary stuff like move your ```_site``` somewhere safe, delete everything, move the ```_site``` back and then do a commit to the ```gh-pages``` branch of your repository. You can read about it [here](http://blog.nitrous.io/2013/08/30/using-jekyll-plugins-on-github-pages.html). You would only need to use this if you are using Github project pages to host your site. Integration with the existing Rakefile is left as an exercise for the reader.
